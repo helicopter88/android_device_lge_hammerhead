@@ -15,6 +15,8 @@
 
 #include <linux/kernel.h>
 #include <linux/string.h>
+#include <linux/platform_device.h>
+#include <linux/persistent_ram.h>
 #include <linux/io.h>
 #include <linux/slab.h>
 #include <asm/setup.h>
@@ -23,6 +25,67 @@
 #ifdef CONFIG_LGE_HANDLE_PANIC
 #include <mach/lge_handle_panic.h>
 #endif
+
+#ifdef CONFIG_ANDROID_RAM_CONSOLE
+#define LGE_RAM_CONSOLE_SIZE (128 * SZ_1K * 2)
+static struct platform_device ram_console_device = {
+	.name = "ram_console",
+	.id = -1,
+};
+#endif
+
+#ifdef CONFIG_PERSISTENT_TRACER
+static struct platform_device persistent_trace_device = {
+	.name = "persistent_trace",
+	.id = -1,
+};
+#endif
+
+#ifdef CONFIG_ANDROID_PERSISTENT_RAM
+#define LGE_PERSISTENT_RAM_SIZE (SZ_1M)
+static struct persistent_ram_descriptor pram_descs[] = {
+#ifdef CONFIG_ANDROID_RAM_CONSOLE
+	{
+		.name = "ram_console",
+		.size = LGE_RAM_CONSOLE_SIZE,
+	},
+#endif
+#ifdef CONFIG_PERSISTENT_TRACER
+	{
+		.name = "persistent_trace",
+		.size = LGE_RAM_CONSOLE_SIZE,
+	},
+#endif
+};
+
+static struct persistent_ram persist_ram = {
+	.size = LGE_PERSISTENT_RAM_SIZE,
+	.num_descs = ARRAY_SIZE(pram_descs),
+	.descs = pram_descs,
+};
+
+static void __init lge_add_persist_ram_devices(void)
+{
+	int ret;
+	struct membank *bank;
+
+	if (meminfo.nr_banks < 2) {
+		pr_err("%s: not enough membank\n", __func__);
+		return;
+	}
+
+	bank = &meminfo.bank[1];
+	/* first 1MB is used by bootloader */
+	persist_ram.start = bank->start + SZ_1M;
+
+	pr_info("PERSIST RAM CONSOLE START ADDR : 0x%x\n",
+			persist_ram.start);
+
+	ret = persistent_ram_early_init(&persist_ram);
+	if (ret)
+		pr_err("%s: failed to initialize persistent ram\n", __func__);
+}
+#endif /* CONFIG_ANDROID_PERSISTENT_RAM */
 
 void __init lge_reserve(void)
 {
