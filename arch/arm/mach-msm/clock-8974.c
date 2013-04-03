@@ -4950,6 +4950,7 @@ static struct clk_lookup msm_clocks_8974_common[] __initdata = {
 	CLK_LOOKUP("xo",       cxo_dwc3_clk.c,                 "msm_dwc3"),
 	CLK_LOOKUP("xo",  cxo_ehci_host_clk.c,            "msm_ehci_host"),
 	CLK_LOOKUP("xo",        cxo_lpm_clk.c,        "fc4281d0.qcom,mpm"),
+	CLK_LOOKUP("xo",         cxo_d1_pin.c,                 "bcm2079x"),
 
 	CLK_LOOKUP("measure",	measure_clk.c,	"debug"),
 
@@ -5705,6 +5706,8 @@ static void __init msm8974_clock_post_init(void)
 	 * to remain on whenever CPUs aren't power collapsed.
 	 */
 	clk_prepare_enable(&cxo_a_clk_src.c);
+
+	clk_prepare_enable(&cxo_d1_pin.c);
 
 	/*
 	 * TODO: Temporarily enable NOC configuration AHB clocks. Remove when
