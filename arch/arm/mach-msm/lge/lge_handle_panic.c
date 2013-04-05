@@ -44,6 +44,15 @@ static int dummy_arg;
 
 static int subsys_crash_magic = 0x0;
 
+static int enable = 0;
+module_param_named(enable, enable, int, S_IWUSR | S_IRUGO);
+
+int lge_is_handle_panic_enable(void)
+{
+	return enable;
+}
+EXPORT_SYMBOL(lge_is_handle_panic_enable);
+
 int lge_set_magic_subsystem(const char *name, int type)
 {
 	const char *subsys_name[] = { "adsp", "mba", "modem", "wcnss" };
