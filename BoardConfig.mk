@@ -44,6 +44,7 @@ BOARD_USES_ALSA_AUDIO := true
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/hammerhead/bluetooth
+COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE -DQCOM_FM_ENABLED
 
 # Wifi related defines
 WPA_SUPPLICANT_VERSION      := VER_0_8_X
@@ -55,6 +56,11 @@ BOARD_HOSTAPD_PRIVATE_LIB   := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/bcmdhd/parameters/firmware_path"
 WIFI_DRIVER_FW_PATH_AP      := "/vendor/firmware/fw_bcmdhd_apsta.bin"
 WIFI_DRIVER_FW_PATH_STA     := "/vendor/firmware/fw_bcmdhd.bin"
+
+# Kernel defines
+TARGET_KERNEL_SOURCE   := kernel/lge/hammerhead
+TARGET_KERNEL_CONFIG   := hammerhead_defconfig
+BUILD_KERNEL           := true
 
 BOARD_USES_SECURE_SERVICES := true
 
