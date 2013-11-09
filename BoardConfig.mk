@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+LOCAL_PATH:= $(call my-dir)
 
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
@@ -43,7 +44,7 @@ BOARD_USES_ALSA_AUDIO := true
 
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/hammerhead/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
 COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE -DQCOM_FM_ENABLED
 
 # Wifi related defines
@@ -67,11 +68,11 @@ BOARD_USES_SECURE_SERVICES := true
 TARGET_NO_RADIOIMAGE := true
 TARGET_BOARD_PLATFORM := msm8974
 TARGET_BOOTLOADER_BOARD_NAME := hammerhead
-TARGET_BOARD_INFO_FILE := device/lge/hammerhead/board-info.txt
+TARGET_BOARD_INFO_FILE := $(LOCAL_PATH)/board-info.txt
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
 TARGET_NO_RPC := true
 
-BOARD_EGL_CFG := device/lge/hammerhead/egl.cfg
+BOARD_EGL_CFG := $(LOCAL_PATH)/egl.cfg
 
 USE_OPENGL_RENDERER := true
 VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
@@ -92,16 +93,14 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_RECOVERY_UI_LIB := librecovery_ui_hammerhead
-TARGET_RECOVERY_FSTAB = device/lge/hammerhead/fstab.hammerhead
+TARGET_RECOVERY_FSTAB = $(LOCAL_PATH)/prebuilt/root/fstab.hammerhead
 
-TARGET_RELEASETOOLS_EXTENSIONS := device/lge/hammerhead
-
-PDK_PLATFORM_ZIP_PRODUCT_BINARIES := device/lge/hammerhead-kernel/vmlinux.bz2
+TARGET_RELEASETOOLS_EXTENSIONS := $(LOCAL_PATH)
 
 BOARD_HAL_STATIC_LIBRARIES := libdumpstate.hammerhead
 
 BOARD_SEPOLICY_DIRS := \
-       device/lge/hammerhead/sepolicy
+       $(LOCAL_PATH)/sepolicy
 
 # The list below is order dependent
 BOARD_SEPOLICY_UNION := \

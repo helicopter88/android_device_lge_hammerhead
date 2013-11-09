@@ -20,47 +20,39 @@
 # Everything in this directory will become public
 
 
-#ifeq ($(TARGET_PREBUILT_KERNEL),)
-#LOCAL_KERNEL := device/lge/hammerhead-kernel/zImage-dtb
-#else
-#LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-#endif
-
-
-#PRODUCT_COPY_FILES := \
-#    $(LOCAL_KERNEL):kernel
+PREBUILTS_PATH := device/lge/hammerhead/prebuilt
 
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/init.hammerhead.rc:root/init.hammerhead.rc \
-    device/lge/hammerhead/init.hammerhead.usb.rc:root/init.hammerhead.usb.rc \
-    device/lge/hammerhead/fstab.hammerhead:root/fstab.hammerhead \
-    device/lge/hammerhead/ueventd.hammerhead.rc:root/ueventd.hammerhead.rc
+    $(PREBUILTS_PATH)/root/init.hammerhead.rc:root/init.hammerhead.rc \
+    $(PREBUILTS_PATH)/root/init.hammerhead.usb.rc:root/init.hammerhead.usb.rc \
+    $(PREBUILTS_PATH)/root/fstab.hammerhead:root/fstab.hammerhead \
+    $(PREBUILTS_PATH)/root/ueventd.hammerhead.rc:root/ueventd.hammerhead.rc
 
 # Input device files for hammerhead
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
-    device/lge/hammerhead/gpio-keys.kcm:system/usr/keychars/gpio-keys.kcm \
-    device/lge/hammerhead/qpnp_pon.kl:system/usr/keylayout/qpnp_pon.kl \
-    device/lge/hammerhead/qpnp_pon.kcm:system/usr/keychars/qpnp_pon.kcm \
-    device/lge/hammerhead/Button_Jack.kl:system/usr/keylayout/msm8974-taiko-mtp-snd-card_Button_Jack.kl \
-    device/lge/hammerhead/Button_Jack.kcm:system/usr/keychars/msm8974-taiko-mtp-snd-card_Button_Jack.kcm \
-    device/lge/hammerhead/hs_detect.kl:system/usr/keylayout/hs_detect.kl \
-    device/lge/hammerhead/hs_detect.kcm:system/usr/keychars/hs_detect.kcm
+    $(PREBUILTS_PATH)/system/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+    $(PREBUILTS_PATH)/system/usr/keychars/gpio-keys.kcm:system/usr/keychars/gpio-keys.kcm \
+    $(PREBUILTS_PATH)/system/usr/keylayout/qpnp_pon.kl:system/usr/keylayout/qpnp_pon.kl \
+    $(PREBUILTS_PATH)/system/usr/keychars/qpnp_pon.kcm:system/usr/keychars/qpnp_pon.kcm \
+    $(PREBUILTS_PATH)/system/usr/keylayout/Button_Jack.kl:system/usr/keylayout/msm8974-taiko-mtp-snd-card_Button_Jack.kl \
+    $(PREBUILTS_PATH)/system/usr/keychars/Button_Jack.kcm:system/usr/keychars/msm8974-taiko-mtp-snd-card_Button_Jack.kcm \
+    $(PREBUILTS_PATH)/system/usr/keylayout/hs_detect.kl:system/usr/keylayout/hs_detect.kl \
+    $(PREBUILTS_PATH)/system/usr/keychars/hs_detect.kcm:system/usr/keychars/hs_detect.kcm
 
 # Prebuilt input device calibration files
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/touch_dev.idc:system/usr/idc/touch_dev.idc
+    $(PREBUILTS_PATH)/system/usr/idc/touch_dev.idc:system/usr/idc/touch_dev.idc
 
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/audio_policy.conf:system/etc/audio_policy.conf \
-    device/lge/hammerhead/mixer_paths.xml:system/etc/mixer_paths.xml
+    $(PREBUILTS_PATH)/system/etc/audio_policy.conf:system/etc/audio_policy.conf \
+    $(PREBUILTS_PATH)/system/etc/mixer_paths.xml:system/etc/mixer_paths.xml
 
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/media_codecs.xml:system/etc/media_codecs.xml \
-    device/lge/hammerhead/media_profiles.xml:system/etc/media_profiles.xml
+    $(PREBUILTS_PATH)/system/etc/media_codecs.xml:system/etc/media_codecs.xml \
+    $(PREBUILTS_PATH)/system/etc/media_profiles.xml:system/etc/media_profiles.xml
 
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
+    $(PREBUILTS_PATH)/system/etc/wifi/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
@@ -87,7 +79,7 @@ PRODUCT_COPY_FILES += \
 
 # For GPS
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/sec_config:system/etc/sec_config
+    $(PREBUILTS_PATH)/system/etc/sec_config:system/etc/sec_config
 
 # NFC access control + feature files + configuration
 PRODUCT_COPY_FILES += \
@@ -97,7 +89,7 @@ PRODUCT_COPY_FILES += \
     device/lge/hammerhead/nfc/libnfc-brcm-20791b05.conf:system/etc/libnfc-brcm-20791b05.conf
 
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/thermal-engine-hammerhead.conf:system/etc/thermal-engine.conf
+    $(PREBUILTS_PATH)/system/etc/thermal-engine-hammerhead.conf:system/etc/thermal-engine.conf
 
 PRODUCT_TAGS += dalvik.gc.type-precise
 
