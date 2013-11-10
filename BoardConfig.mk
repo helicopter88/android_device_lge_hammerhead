@@ -59,9 +59,10 @@ WIFI_DRIVER_FW_PATH_AP      := "/vendor/firmware/fw_bcmdhd_apsta.bin"
 WIFI_DRIVER_FW_PATH_STA     := "/vendor/firmware/fw_bcmdhd.bin"
 
 # Kernel defines
-TARGET_KERNEL_SOURCE   := kernel/lge/hammerhead
-TARGET_KERNEL_CONFIG   := hammerhead_defconfig
-BUILD_KERNEL           := true
+TARGET_KERNEL_SOURCE     := kernel/lge/hammerhead
+TARGET_KERNEL_CONFIG     := hammerhead_defconfig
+TARGET_KERNEL_NO_MODULES := true
+BUILD_KERNEL             := true
 
 BOARD_USES_SECURE_SERVICES := true
 
