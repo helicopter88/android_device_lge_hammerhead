@@ -19,8 +19,7 @@
 #
 # Everything in this directory will become public
 
-LOCAL_PATH:= $(call my-dir)
-PREBUILTS_PATH := $(LOCAL_PATH)/prebuilt
+PREBUILTS_PATH := device/lge/hammerhead/prebuilt
 
 PRODUCT_COPY_FILES += \
     $(PREBUILTS_PATH)/root/init.hammerhead.rc:root/init.hammerhead.rc \
@@ -141,7 +140,7 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessingdescriptors
 
 PRODUCT_COPY_FILES += \
-    $(PREBUILT_PATH)/system/vendor/etc/audio_effects.conf:system/vendor/etc/audio_effects.conf
+    $(PREBUILTS_PATH)/system/vendor/etc/audio_effects.conf:system/vendor/etc/audio_effects.conf
 
 PRODUCT_PACKAGES += \
     libqomx_core \
@@ -159,7 +158,7 @@ PRODUCT_PACKAGES += \
 
 # GPS configuration
 PRODUCT_COPY_FILES += \
-    $(PREBUILT_PATH)/system/etc/gps.conf:system/etc/gps.conf
+    $(PREBUILTS_PATH)/system/etc/gps.conf:system/etc/gps.conf
 
 # GPS
 PRODUCT_PACKAGES += \
