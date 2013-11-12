@@ -163,6 +163,8 @@ static int get_console_state(struct uart_port *port);
 static inline int get_console_state(struct uart_port *port) { return -ENODEV; };
 #endif
 
+static bool msm_console_disabled = false;
+
 static struct dentry *debug_base;
 static inline void wait_for_xmitr(struct uart_port *port);
 static inline void msm_hsl_write(struct uart_port *port,
@@ -184,6 +186,16 @@ static inline unsigned int msm_hsl_read(struct uart_port *port,
 static unsigned int msm_serial_hsl_has_gsbi(struct uart_port *port)
 {
 	return (UART_TO_MSM(port)->uart_type == GSBI_HSUART);
+}
+
+void msm_console_set_enable(bool enable)
+{
+        msm_console_disabled = !enable;
+}
+
+static bool console_disabled(void)
+{
+        return msm_console_disabled;
 }
 
 /**
