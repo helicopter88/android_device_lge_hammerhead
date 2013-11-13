@@ -1,4 +1,5 @@
-/* Copyright (c) 2012, Code Aurora Forum. All rights reserved.
+/* Copyright (c) 2013, LGE Inc. All rights reserved.
+ * Copyright (c) 2012, Code Aurora Forum. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -16,26 +17,29 @@
 	i2c@f9924000 {
 		synaptics_s3350@70 {
 			status = "ok";
-		};
-	};
-
-	i2c@f9968000 {
-		mpu6515_acc@68 {
-			axis_map_x = <0>;
-			axis_map_y = <1>;
-			negate_z = <0>;
-			inven,aux_type = "none";
+			synaptics,type = <1>;
 		};
 	};
 
 	vibrator {
 		vdd-supply = <&pm8941_l19>;
 		use-vdd-supply;
-		vibe-warmup-delay = <15>;
+		vibe-warmup-delay = <25>;
 	};
 
-	qcom,mdss_dsi_jdi_command {
+	qcom,mdss_dsi_jdi_command_ors {
 		status = "ok";
 		qcom,cont-splash-enabled;
+	};
+
+	gpio_keys {
+		cover-switch {
+			label = "cover-switch";
+			gpios = <&msmgpio 144 0x01>;
+			linux,input-type = <5>;
+			linux,code = <0>;
+			gpio-key,wakeup;
+			debounce-interval = <15>;
+		};
 	};
 };

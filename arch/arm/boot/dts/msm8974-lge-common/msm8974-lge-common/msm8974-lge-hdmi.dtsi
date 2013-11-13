@@ -10,20 +10,3 @@
  * GNU General Public License for more details.
  */
 
-&soc {
-	i2c@f9967000 {
-		bcm2079x@77 {
-			compatible = "bcm,bcm2079x";
-			status = "disable";
-			reg = <0x77>;
-			bcm,i2c-pull-up = <1>;
-			interrupt-parent = <&msmgpio>;
-			interrupts = <59 0x2>;
-			bcm,gpio_sda = <&msmgpio 83 0x00>;
-			bcm,gpio_scl = <&msmgpio 84 0x00>;
-			bcm,gpio_ven = <&msmgpio 94 0x00>;
-			bcm,gpio_wake = <&msmgpio 92 0x00>;
-			bcm,gpio_irq = <&msmgpio 59 0x00>;
-		};
-	};
-};

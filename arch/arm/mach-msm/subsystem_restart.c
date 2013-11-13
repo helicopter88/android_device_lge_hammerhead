@@ -468,7 +468,6 @@ static void subsystem_ramdump(struct subsys_device *dev, void *data)
 static void subsystem_powerup(struct subsys_device *dev, void *data)
 {
 	const char *name = dev->desc->name;
-	int ret;
 
 	pr_info("[%p]: Powering up %s\n", current, name);
 	if (dev->desc->powerup(dev->desc) < 0) {
