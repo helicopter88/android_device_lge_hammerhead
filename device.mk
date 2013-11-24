@@ -21,7 +21,8 @@
 
 PREBUILTS_PATH := device/lge/hammerhead/prebuilt
 
-PRODUCT_COPY_FILES += \
+PRODUCT_COPY_FILES := \
+    device/lge/hammerhead-kernel/zImage-dtb:kernel \
     $(PREBUILTS_PATH)/root/init.hammerhead.rc:root/init.hammerhead.rc \
     $(PREBUILTS_PATH)/root/init.hammerhead.usb.rc:root/init.hammerhead.usb.rc \
     $(PREBUILTS_PATH)/root/fstab.hammerhead:root/fstab.hammerhead \

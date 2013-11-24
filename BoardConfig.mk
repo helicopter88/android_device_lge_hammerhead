@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-DEVICE_PATH := device/lge/hammerhead
+LOCAL_DEVICE_PATH := device/lge/hammerhead
 
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
@@ -24,11 +24,18 @@ TARGET_CPU_VARIANT := krait
 
 TARGET_NO_BOOTLOADER := true
 
-BOARD_KERNEL_IMAGE_NAME := zImage-dtb
+# Kernel defines
+KERNEL_SRC   := kernel/lge/hammerhead
+KERNEL_CONFIG := hammerhead_defconfig
+KERNEL_TARGET := zImage-dtb
+BUILD_KERNEL_MODULES := false
+BUILD_KERNEL           := true
+
+TARGET_BOOTLOADER_TYPE := zImage-dtb
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=hammerhead user_debug=31 maxcpus=2 msm_watchdog_v2.enable=1
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=hammerhead user_debug=31 msm_watchdog_v2.enable=1
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02900000 --tags_offset 0x02700000
 
 # Shader cache config options
@@ -45,8 +52,10 @@ BOARD_USES_ALSA_AUDIO := true
 
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_DEVICE_PATH)/bluetooth
 COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE -DQCOM_FM_ENABLED
+AUDIO_FEATURE_DISABLED_SSR := true
+AUDIO_FEATURE_DISABLED_MULTI_VOICE_SESSIONS := true
 
 # Wifi related defines
 WPA_SUPPLICANT_VERSION      := VER_0_8_X
@@ -59,29 +68,25 @@ WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/bcmdhd/parameters/firmware_path"
 WIFI_DRIVER_FW_PATH_AP      := "/vendor/firmware/fw_bcmdhd_apsta.bin"
 WIFI_DRIVER_FW_PATH_STA     := "/vendor/firmware/fw_bcmdhd.bin"
 
-# Kernel defines
-TARGET_KERNEL_SOURCE     := kernel/lge/hammerhead
-TARGET_KERNEL_CONFIG     := hammerhead_defconfig
-TARGET_KERNEL_NO_MODULES := true
-BUILD_KERNEL             := true
-
 BOARD_USES_SECURE_SERVICES := true
 
 TARGET_NO_RADIOIMAGE := true
 TARGET_BOARD_PLATFORM := msm8974
 TARGET_BOOTLOADER_BOARD_NAME := hammerhead
-TARGET_BOARD_INFO_FILE := $(DEVICE_PATH)/board-info.txt
+TARGET_BOARD_INFO_FILE := $(LOCAL_DEVICE_PATH)/board-info.txt
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
 TARGET_NO_RPC := true
 
-BOARD_EGL_CFG := $(DEVICE_PATH)/egl.cfg
+BOARD_EGL_CFG := $(LOCAL_DEVICE_PATH)/egl.cfg
 
 USE_OPENGL_RENDERER := true
 VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
 SF_VSYNC_EVENT_PHASE_OFFSET_NS := 5000000
 TARGET_USES_ION := true
+TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
 TARGET_USERIMAGES_USE_EXT4 := true
+
 BOARD_BOOTIMAGE_PARTITION_SIZE := 23068672
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 23068672
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1073741824
@@ -95,14 +100,14 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_RECOVERY_UI_LIB := librecovery_ui_hammerhead
-TARGET_RECOVERY_FSTAB = $(DEVICE_PATH)/prebuilt/root/fstab.hammerhead
+TARGET_RECOVERY_FSTAB = $(LOCAL_DEVICE_PATH)/prebuilt/root/fstab.hammerhead
 
-TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)
+TARGET_RELEASETOOLS_EXTENSIONS := $(LOCAL_DEVICE_PATH)
 
 BOARD_HAL_STATIC_LIBRARIES := libdumpstate.hammerhead
 
 BOARD_SEPOLICY_DIRS := \
-       $(DEVICE_PATH)/sepolicy
+       $(LOCAL_DEVICE_PATH)/sepolicy
 
 # The list below is order dependent
 BOARD_SEPOLICY_UNION := \
@@ -115,3 +120,17 @@ HAVE_ADRENO_SOURCE:= false
 OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
 
 -include vendor/lge/hammerhead/BoardConfigVendor.mk
+#TWRP
+DEVICE_RESOLUTION := 1080x1920
+BOARD_HAS_NO_REAL_SDCARD := true
+RECOVERY_SDCARD_ON_DATA := true
+TW_NO_USB_STORAGE := false
+TW_INCLUDE_JB_CRYPTO := true
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+# The real path for this is /sys/devices/mdp.0/qcom,cmdss_fb_primary.160/leds/lcd-backlight/brightness but the comma doesn't compile correctly
+TW_BRIGHTNESS_PATH := "/sys/devices/mdp.0/qcom\x2cmdss_fb_primary.160/leds/lcd-backlight/brightness"
+TW_MAX_BRIGHTNESS := 255
+TW_NO_SCREEN_TIMEOUT := true
+BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
+
